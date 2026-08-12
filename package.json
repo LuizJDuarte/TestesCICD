@@ -1,0 +1,40 @@
+{
+  "name": "testes-cicd",
+  "version": "2.0.0",
+  "description": "MiniLoja - demonstração de testes automatizados com Cucumber + Cypress + Jenkins (Engenharia de Software I)",
+  "scripts": {
+    "start": "http-server ./sistema -p 8080 -c-1",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:login": "cypress run --env tags=@login",
+    "cypress:dashboard": "cypress run --env tags=@dashboard",
+    "cypress:produtos": "cypress run --env tags=@produtos",
+    "test": "start-server-and-test start http://localhost:8080 cypress:run",
+    "test:login": "start-server-and-test start http://localhost:8080 cypress:login",
+    "test:dashboard": "start-server-and-test start http://localhost:8080 cypress:dashboard",
+    "test:produtos": "start-server-and-test start http://localhost:8080 cypress:produtos"
+  },
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": [
+      "cypress/support/step_definitions/**/*.js"
+    ]
+  },
+  "keywords": [
+    "cypress",
+    "cucumber",
+    "bdd",
+    "gherkin",
+    "jenkins",
+    "ci-cd"
+  ],
+  "author": "Luiz",
+  "license": "MIT",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^26.0.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
+    "cypress": "^15.20.1",
+    "esbuild": "^0.28.2",
+    "http-server": "^14.1.1",
+    "start-server-and-test": "^3.0.12"
+  }
+}

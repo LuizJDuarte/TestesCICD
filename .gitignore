@@ -1,0 +1,15 @@
+# Dependências do Node (nunca vão para o Git — são reinstaladas com "npm install")
+node_modules/
+
+# Saídas geradas pelo Cypress durante a execução dos testes
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
+# Dados do Jenkins rodando em Docker
+jenkins_home/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+*.log

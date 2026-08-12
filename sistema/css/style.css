@@ -1,0 +1,404 @@
+/* ============================================================
+   Estilo da MiniLoja.
+   Fontes grandes e cores claras de propósito: isso vai ser
+   projetado no datashow da sala de aula.
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #eef2f7;
+  color: #1f2937;
+  min-height: 100vh;
+}
+
+/* Usado nas telas de login e de recuperação de senha */
+body.tela-centralizada {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* ---------------- Cartão central (login / recuperar senha) --- */
+
+.cartao {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 480px;
+  padding: 44px 40px;
+  border-radius: 16px;
+  border-top: 8px solid #2563eb;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.10);
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+h2 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: #111827;
+}
+
+.subtitulo {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 28px;
+}
+
+label {
+  display: block;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  font-size: 19px;
+  padding: 13px 15px;
+  margin-bottom: 18px;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-family: inherit;
+  background-color: #ffffff;
+  color: #1f2937;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.linha-opcoes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  font-size: 16px;
+}
+
+.label-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.label-inline input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+a {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  width: 100%;
+  font-size: 19px;
+  font-weight: 700;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+
+button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+button.secundario {
+  width: auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+button.secundario:hover {
+  background-color: #d1d5db;
+}
+
+/* ---------------- Mensagens ---------------- */
+
+#mensagem-erro {
+  margin-top: 20px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #b91c1c;
+  background-color: #fee2e2;
+  border-left: 6px solid #dc2626;
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+
+#mensagem-sucesso {
+  margin-top: 20px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #15803d;
+  background-color: #dcfce7;
+  border-left: 6px solid #16a34a;
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+
+#mensagem-vazio {
+  margin-top: 24px;
+  font-size: 19px;
+  font-weight: 600;
+  color: #92400e;
+  background-color: #fef3c7;
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+
+/* Elementos vazios ficam invisíveis. É assim que o teste
+   consegue afirmar "a mensagem de erro NÃO deve aparecer". */
+#mensagem-erro:empty,
+#mensagem-sucesso:empty,
+#mensagem-vazio:empty {
+  display: none;
+}
+
+.dica {
+  margin-top: 26px;
+  font-size: 15px;
+  color: #9ca3af;
+  text-align: center;
+}
+
+/* ---------------- Cabeçalho das páginas internas ---------------- */
+
+#cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  background-color: #ffffff;
+  padding: 16px 32px;
+  border-bottom: 3px solid #2563eb;
+}
+
+.marca {
+  font-size: 22px;
+  font-weight: 800;
+  color: #2563eb;
+}
+
+#menu {
+  display: flex;
+  gap: 24px;
+  font-size: 17px;
+}
+
+#menu a.ativo {
+  color: #111827;
+  border-bottom: 3px solid #2563eb;
+  padding-bottom: 2px;
+}
+
+.area-usuario {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#usuario-logado {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 36px 32px;
+}
+
+/* ---------------- Cartões de resumo do dashboard ---------------- */
+
+#cartoes {
+  display: flex;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.card-resumo {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-titulo {
+  font-size: 16px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-valor {
+  font-size: 44px;
+  font-weight: 800;
+  color: #2563eb;
+}
+
+.bloco-ajuda {
+  margin-top: 36px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  font-size: 17px;
+  line-height: 1.6;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+}
+
+/* ---------------- Página de produtos ---------------- */
+
+.barra-filtros {
+  display: flex;
+  gap: 16px;
+  margin: 24px 0 8px;
+}
+
+.barra-filtros #campo-busca {
+  flex: 2;
+  margin-bottom: 0;
+}
+
+.barra-filtros #filtro-categoria {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.colunas {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+#lista-produtos {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.produto {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.produto-categoria {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2563eb;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.produto-nome {
+  font-size: 19px;
+  color: #111827;
+}
+
+.produto-preco {
+  font-size: 22px;
+  font-weight: 800;
+  color: #15803d;
+}
+
+.btn-adicionar {
+  /* "auto" empurra o botão para o fim do cartão, deixando todos
+     os botões alinhados mesmo quando o nome do produto ocupa
+     duas linhas. */
+  margin-top: auto;
+  font-size: 16px;
+  padding: 10px;
+}
+
+#carrinho {
+  flex: 0 0 290px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  position: sticky;
+  top: 24px;
+}
+
+#itens-carrinho {
+  list-style: none;
+  margin: 12px 0;
+}
+
+.item-carrinho {
+  font-size: 15px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+}
+
+#carrinho-vazio {
+  font-size: 15px;
+  color: #9ca3af;
+  margin: 12px 0;
+}
+
+.total {
+  font-size: 18px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 2px solid #e5e7eb;
+}
+
+#total-carrinho {
+  color: #15803d;
+  font-size: 22px;
+}

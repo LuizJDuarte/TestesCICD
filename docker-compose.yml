@@ -1,0 +1,41 @@
+# ============================================================
+#  Sobe o Jenkins na sua máquina com um comando só:
+#
+#      docker compose up -d --build
+#
+#  Depois abra no navegador:  http://localhost:8081
+#
+#  Por que a porta 8081 e não a 8080?
+#  Porque a 8080 é onde o NOSSO SISTEMA roda (http-server).
+#  Deixando o Jenkins na 8081, os dois convivem sem brigar.
+# ============================================================
+
+services:
+  jenkins:
+    build: ./jenkins
+    container_name: jenkins-aula
+    restart: unless-stopped
+
+    environment:
+      # Faz o Jenkins escutar na 8081 DENTRO do container também,
+      # liberando a 8080 para o http-server durante o build.
+      - JENKINS_OPTS=--httpPort=8081
+
+      # Pula o assistente de configuração inicial (aquela tela da senha secreta).
+      # O usuário admin/admin já é criado pelo script em jenkins/init.groovy.d/
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+
+    ports:
+      - "8081:8081" # interface web do Jenkins
+      - "50000:50000" # comunicação com agentes (não usamos hoje, mas é padrão)
+
+    volumes:
+      # Guarda os dados do Jenkins (jobs, plugins, senha) mesmo se o container morrer
+      - jenkins_home:/var/jenkins_home
+
+      # PLANO B (offline): deixa a pasta do projeto visível dentro do container
+      # em /projeto, caso você não queira usar o GitHub na aula.
+      - ./:/projeto:ro
+
+volumes:
+  jenkins_home:

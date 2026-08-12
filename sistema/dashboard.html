@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - MiniLoja</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Barra do topo, repetida nas páginas internas -->
+  <header id="cabecalho">
+    <span class="marca">MiniLoja</span>
+
+    <nav id="menu">
+      <a id="menu-inicio" href="dashboard.html" class="ativo">Início</a>
+      <a id="menu-produtos" href="produtos.html">Produtos</a>
+    </nav>
+
+    <div class="area-usuario">
+      <!-- O e-mail de quem entrou aparece aqui (preenchido pelo JavaScript) -->
+      <span id="usuario-logado"></span>
+      <button id="btn-sair" class="secundario">Sair</button>
+    </div>
+  </header>
+
+  <main>
+    <h1 id="titulo-bemvindo">Bem-vindo ao Sistema!</h1>
+    <p class="subtitulo">Resumo geral da loja.</p>
+
+    <!-- Três cartões: os testes conferem quantos são e o valor de cada um -->
+    <section id="cartoes">
+      <div class="card-resumo" data-card="Produtos">
+        <span class="card-titulo">Produtos</span>
+        <span class="card-valor">6</span>
+      </div>
+      <div class="card-resumo" data-card="Pedidos">
+        <span class="card-titulo">Pedidos</span>
+        <span class="card-valor">12</span>
+      </div>
+      <div class="card-resumo" data-card="Usuários">
+        <span class="card-titulo">Usuários</span>
+        <span class="card-valor">3</span>
+      </div>
+    </section>
+
+    <section class="bloco-ajuda">
+      <h2>Precisa de ajuda?</h2>
+      <p>
+        Consulte a
+        <!-- Link EXTERNO: os testes conferem só um PEDAÇO do endereço -->
+        <a id="link-documentacao"
+           href="https://docs.cypress.io/app/end-to-end-testing/writing-your-first-end-to-end-test"
+           target="_blank"
+           rel="noopener">Documentação do Cypress</a>
+        para aprender a escrever seus próprios testes.
+      </p>
+    </section>
+  </main>
+
+  <script src="js/sessao.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - MiniLoja</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="tela-centralizada">
+
+  <div class="cartao">
+
+    <h1 id="titulo-login">Acessar o Sistema</h1>
+    <p class="subtitulo">MiniLoja &mdash; demonstração de testes automatizados</p>
+
+    <label for="email">E-mail</label>
+    <input type="email" id="email" placeholder="admin@admin.com">
+
+    <label for="senha">Senha</label>
+    <input type="password" id="senha" placeholder="123456">
+
+    <div class="linha-opcoes">
+      <label class="label-inline" for="lembrar">
+        <input type="checkbox" id="lembrar">
+        Lembrar de mim
+      </label>
+
+      <!-- Um link de verdade: os testes vão conferir para onde ele aponta -->
+      <a id="link-esqueci-senha" href="recuperar-senha.html">Esqueci minha senha</a>
+    </div>
+
+    <button id="btn-entrar">Entrar</button>
+
+    <!-- Nasce vazia e invisível. O JavaScript preenche quando dá erro. -->
+    <div id="mensagem-erro"></div>
+
+    <p class="dica">Use: admin@admin.com / 123456</p>
+
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

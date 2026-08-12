@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos - MiniLoja</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header id="cabecalho">
+    <span class="marca">MiniLoja</span>
+
+    <nav id="menu">
+      <a id="menu-inicio" href="dashboard.html">Início</a>
+      <a id="menu-produtos" href="produtos.html" class="ativo">Produtos</a>
+    </nav>
+
+    <div class="area-usuario">
+      <span id="usuario-logado"></span>
+      <button id="btn-sair" class="secundario">Sair</button>
+    </div>
+  </header>
+
+  <main>
+    <h1 id="titulo-produtos">Catálogo de Produtos</h1>
+
+    <div class="barra-filtros">
+      <input type="text" id="campo-busca" placeholder="Buscar produto...">
+
+      <select id="filtro-categoria">
+        <option value="Todas">Todas as categorias</option>
+        <option value="Computadores">Computadores</option>
+        <option value="Periféricos">Periféricos</option>
+        <option value="Móveis">Móveis</option>
+      </select>
+    </div>
+
+    <div class="colunas">
+
+      <!-- Os cartões de produto são criados pelo JavaScript (js/produtos.js) -->
+      <section id="lista-produtos"></section>
+
+      <!-- Painel do carrinho -->
+      <aside id="carrinho">
+        <h2>Carrinho (<span id="contador-carrinho">0</span>)</h2>
+        <ul id="itens-carrinho"></ul>
+        <p id="carrinho-vazio">Seu carrinho está vazio.</p>
+        <p class="total">Total: <strong id="total-carrinho">R$ 0,00</strong></p>
+      </aside>
+
+    </div>
+
+    <!-- Só aparece quando a busca não encontra nada -->
+    <div id="mensagem-vazio"></div>
+  </main>
+
+  <script src="js/sessao.js"></script>
+  <script src="js/produtos.js"></script>
+</body>
+</html>
