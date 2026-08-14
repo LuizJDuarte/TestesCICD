@@ -1,27 +1,13 @@
-// ============================================================
-//  Jenkinsfile  -  a "receita" da nossa esteira de CI/CD.
-//
-//  Este arquivo fica DENTRO do repositório, junto com o código.
-//  Ou seja: a configuração da automação é versionada no Git,
-//  igual ao resto do projeto. Isso se chama "Pipeline as Code".
-//
-//  O Jenkins lê este arquivo de cima para baixo e executa os
-//  "stages" (etapas) em ordem. Se uma etapa falhar, ele para
-//  e marca o build como VERMELHO.
-// ============================================================
+// Receita da esteira de CI/CD. Fica no Git junto com o código, então a
+// configuração da automação também é versionada.
 
 pipeline {
 
-    // "agent any" = pode rodar em qualquer máquina disponível.
-    // No nosso caso só existe uma: o próprio container do Jenkins.
+    // Roda no próprio container do Jenkins.
     agent any
 
     stages {
 
-        // ----------------------------------------------------
-        //  ETAPA 1 - PREPARAÇÃO
-        //  Baixa tudo que o projeto precisa para rodar.
-        // ----------------------------------------------------
         stage('1. Preparacao') {
             steps {
                 echo '>> Verificando o ambiente e instalando dependencias...'
@@ -31,15 +17,8 @@ pipeline {
             }
         }
 
-        // ----------------------------------------------------
-        //  ETAPA 2 - TESTES
-        //  Sobe o site e roda o Cypress SEM abrir janela (headless).
-        //  O comando "npm test" faz as duas coisas de uma vez:
-        //     1) liga o http-server na porta 8080
-        //     2) espera o site responder
-        //     3) roda "cypress run"
-        //     4) desliga o servidor no final
-        // ----------------------------------------------------
+        // "npm test" liga o http-server, espera o site responder, roda o
+        // Cypress sem abrir janela e desliga o servidor no fim.
         stage('2. Testes') {
             steps {
                 echo '>> Rodando os testes Cucumber + Cypress em modo headless...'
@@ -47,29 +26,20 @@ pipeline {
             }
         }
 
-        // ----------------------------------------------------
-        //  ETAPA 3 - RESULTADOS
-        // ----------------------------------------------------
         stage('3. Resultados') {
             steps {
                 echo '========================================='
                 echo '  Pipeline finalizada com sucesso!'
-                echo '  Os testes rodaram sozinhos, sem ninguem'
-                echo '  precisar clicar em nada.'
+                echo '  Os testes rodaram sozinhos.'
                 echo '========================================='
             }
         }
     }
 
-    // ----------------------------------------------------
-    //  POST = o que fazer DEPOIS que a pipeline termina,
-    //  não importa se deu certo ou errado.
-    // ----------------------------------------------------
+    // Roda depois da pipeline, tendo dado certo ou não.
     post {
         always {
-            // Guarda os vídeos e prints gerados pelo Cypress.
-            // Eles ficam disponíveis para download na tela do build.
-            // (É assim que você mostra em aula POR QUE um teste falhou.)
+            // Guarda os vídeos e prints do Cypress para baixar na tela do build.
             archiveArtifacts artifacts: 'cypress/videos/**, cypress/screenshots/**',
                              allowEmptyArchive: true
         }

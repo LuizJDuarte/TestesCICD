@@ -1,67 +1,73 @@
-/* ============================================================
-   Tela de LOGIN.
-   Sem framework, sem back-end, sem banco de dados.
-   O objetivo da aula é TESTAR comportamento, não construir
-   um sistema de autenticação de verdade.
-   ============================================================ */
+// Tela de login. Sem back-end: as credenciais ficam aqui mesmo,
+// porque a ideia é ter algo simples de testar.
 
-// Credenciais "corretas" do nosso sistema fake.
-// (Em um sistema real isso NUNCA ficaria no front-end!)
 const EMAIL_CORRETO = "admin@admin.com";
 const SENHA_CORRETA = "123456";
 const LIMITE_TENTATIVAS = 3;
 
-// Contador em memória: volta a zero sempre que a página é recarregada.
 let tentativasErradas = 0;
+let contaBloqueada = false;
 
 const campoEmail = document.getElementById("email");
 const campoSenha = document.getElementById("senha");
 const botaoEntrar = document.getElementById("btn-entrar");
 const divErro = document.getElementById("mensagem-erro");
 
-function mostrarErro(texto) {
-  divErro.textContent = texto;
+// O botão só libera com os dois campos preenchidos.
+// Não usamos trim aqui: quem digitar só espaços na senha consegue clicar
+// e recebe a mensagem de erro. (No campo de e-mail o navegador já
+// descarta os espaços sozinho, porque ele é type="email".)
+function atualizarBotao() {
+  if (contaBloqueada) {
+    return;
+  }
+  botaoEntrar.disabled = campoEmail.value === "" || campoSenha.value === "";
 }
 
+campoEmail.addEventListener("input", atualizarBotao);
+campoSenha.addEventListener("input", atualizarBotao);
+atualizarBotao();
+
 botaoEntrar.addEventListener("click", function () {
-  const email = campoEmail.value.trim();
+  // O e-mail ignora espaços em volta e maiúsculas. A senha não:
+  // ela é comparada exatamente como foi digitada.
+  const email = campoEmail.value.trim().toLowerCase();
   const senha = campoSenha.value;
 
-  // Limpa o erro da tentativa anterior
-  mostrarErro("");
+  divErro.textContent = "";
 
-  // Regra 1: campos obrigatórios
-  if (email === "" || senha === "") {
-    mostrarErro("Preencha o e-mail e a senha.");
+  if (email === "" || senha.trim() === "") {
+    divErro.textContent = "Preencha o e-mail e a senha.";
     return;
   }
 
-  // Regra 2: formato do e-mail (precisa ter @ e um ponto depois dele)
+  // Precisa ter @ e um ponto depois dele.
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    mostrarErro("E-mail em formato inválido.");
+    divErro.textContent = "E-mail em formato inválido.";
     return;
   }
 
-  // Regra 3: credenciais corretas -> guarda a sessão e entra
   if (email === EMAIL_CORRETO && senha === SENHA_CORRETA) {
     sessionStorage.setItem("usuarioLogado", email);
     window.location.href = "dashboard.html";
     return;
   }
 
-  // Regra 4: errou. Conta a tentativa e bloqueia no limite.
-  tentativasErradas = tentativasErradas + 1;
+  tentativasErradas++;
 
+  // Depois de bloqueada, a conta não volta: nem digitar a senha certa
+  // reabilita o botão.
   if (tentativasErradas >= LIMITE_TENTATIVAS) {
-    mostrarErro("Conta bloqueada após 3 tentativas.");
+    contaBloqueada = true;
     botaoEntrar.disabled = true;
+    divErro.textContent = "Conta bloqueada após 3 tentativas.";
     return;
   }
 
-  mostrarErro("E-mail ou senha inválidos.");
+  divErro.textContent = "E-mail ou senha inválidos.";
 });
 
-// Bônus: apertar "Enter" também tenta fazer o login.
+// Enter no teclado tem o mesmo efeito de clicar em Entrar.
 document.addEventListener("keydown", function (evento) {
   if (evento.key === "Enter" && !botaoEntrar.disabled) {
     botaoEntrar.click();

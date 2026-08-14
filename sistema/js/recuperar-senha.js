@@ -1,8 +1,5 @@
-/* ============================================================
-   Tela de RECUPERAÇÃO DE SENHA.
-   Não envia e-mail nenhum: só mostra uma mensagem de confirmação.
-   Serve para termos uma segunda página e poder testar navegação.
-   ============================================================ */
+// Não envia e-mail nenhum, só confirma na tela.
+// Serve para termos outra página e poder testar navegação.
 
 const campoEmailRecuperacao = document.getElementById("email-recuperacao");
 const botaoEnviar = document.getElementById("btn-enviar");

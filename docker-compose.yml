@@ -1,14 +1,5 @@
-# ============================================================
-#  Sobe o Jenkins na sua máquina com um comando só:
-#
-#      docker compose up -d --build
-#
-#  Depois abra no navegador:  http://localhost:8081
-#
-#  Por que a porta 8081 e não a 8080?
-#  Porque a 8080 é onde o NOSSO SISTEMA roda (http-server).
-#  Deixando o Jenkins na 8081, os dois convivem sem brigar.
-# ============================================================
+# Sobe o Jenkins com:  docker compose up -d --build
+# Depois acesse http://localhost:8081 (admin / admin)
 
 services:
   jenkins:
@@ -17,24 +8,23 @@ services:
     restart: unless-stopped
 
     environment:
-      # Faz o Jenkins escutar na 8081 DENTRO do container também,
-      # liberando a 8080 para o http-server durante o build.
+      # A 8080 é a porta do sistema, inclusive dentro do container durante
+      # o build. Com o Jenkins na 8081, os dois não brigam.
       - JENKINS_OPTS=--httpPort=8081
 
-      # Pula o assistente de configuração inicial (aquela tela da senha secreta).
-      # O usuário admin/admin já é criado pelo script em jenkins/init.groovy.d/
+      # Pula o assistente de configuração inicial.
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
 
     ports:
-      - "8081:8081" # interface web do Jenkins
-      - "50000:50000" # comunicação com agentes (não usamos hoje, mas é padrão)
+      - "8081:8081"
+      - "50000:50000"
 
     volumes:
-      # Guarda os dados do Jenkins (jobs, plugins, senha) mesmo se o container morrer
+      # Mantém jobs, plugins e configurações mesmo se o container morrer
       - jenkins_home:/var/jenkins_home
 
-      # PLANO B (offline): deixa a pasta do projeto visível dentro do container
-      # em /projeto, caso você não queira usar o GitHub na aula.
+      # Plano B offline: deixa a pasta do projeto visível em /projeto, para
+      # o Jenkins clonar dali em vez de buscar no GitHub.
       - ./:/projeto:ro
 
 volumes:

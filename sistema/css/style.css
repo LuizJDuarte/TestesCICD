@@ -1,8 +1,4 @@
-/* ============================================================
-   Estilo da MiniLoja.
-   Fontes grandes e cores claras de propósito: isso vai ser
-   projetado no datashow da sala de aula.
-   ============================================================ */
+/* Fontes grandes e fundo claro: isso é projetado no datashow da sala. */
 
 * {
   box-sizing: border-box;
@@ -17,7 +13,7 @@ body {
   min-height: 100vh;
 }
 
-/* Usado nas telas de login e de recuperação de senha */
+/* Login, cadastro e recuperação de senha */
 body.tela-centralizada {
   display: flex;
   align-items: center;
@@ -25,13 +21,11 @@ body.tela-centralizada {
   padding: 24px;
 }
 
-/* ---------------- Cartão central (login / recuperar senha) --- */
-
 .cartao {
   background-color: #ffffff;
   width: 100%;
   max-width: 480px;
-  padding: 44px 40px;
+  padding: 40px;
   border-radius: 16px;
   border-top: 8px solid #2563eb;
   overflow: hidden;
@@ -71,7 +65,7 @@ select {
   width: 100%;
   font-size: 19px;
   padding: 13px 15px;
-  margin-bottom: 18px;
+  margin-bottom: 6px;
   border: 2px solid #d1d5db;
   border-radius: 8px;
   font-family: inherit;
@@ -83,30 +77,6 @@ input:focus,
 select:focus {
   outline: none;
   border-color: #2563eb;
-}
-
-.linha-opcoes {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 22px;
-  font-size: 16px;
-}
-
-.label-inline {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 400;
-  font-size: 16px;
-  margin-bottom: 0;
-  cursor: pointer;
-}
-
-.label-inline input {
-  width: 18px;
-  height: 18px;
-  margin: 0;
 }
 
 a {
@@ -153,7 +123,47 @@ button.secundario:hover {
   background-color: #d1d5db;
 }
 
-/* ---------------- Mensagens ---------------- */
+button.largo {
+  width: 100%;
+}
+
+.linha-opcoes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 22px;
+  font-size: 16px;
+}
+
+.label-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  margin: 14px 0 0;
+  cursor: pointer;
+}
+
+.label-inline input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+/* Erro de um campo do formulário de cadastro.
+   Vazio fica invisível, para o teste poder dizer que o campo está limpo. */
+.erro-campo {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #b91c1c;
+  margin-bottom: 14px;
+}
+
+.erro-campo:empty {
+  display: none;
+}
 
 #mensagem-erro {
   margin-top: 20px;
@@ -187,22 +197,23 @@ button.secundario:hover {
   padding: 18px 20px;
 }
 
-/* Elementos vazios ficam invisíveis. É assim que o teste
-   consegue afirmar "a mensagem de erro NÃO deve aparecer". */
+/* Vazio fica invisível. É assim que o teste verifica que a mensagem
+   de erro não está na tela. */
 #mensagem-erro:empty,
 #mensagem-sucesso:empty,
-#mensagem-vazio:empty {
+#mensagem-vazio:empty,
+#mensagem-carrinho:empty {
   display: none;
 }
 
 .dica {
-  margin-top: 26px;
+  margin-top: 20px;
   font-size: 15px;
   color: #9ca3af;
   text-align: center;
 }
 
-/* ---------------- Cabeçalho das páginas internas ---------------- */
+/* Cabeçalho das páginas internas */
 
 #cabecalho {
   display: flex;
@@ -245,12 +256,12 @@ button.secundario:hover {
 }
 
 main {
-  max-width: 1100px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 36px 32px;
 }
 
-/* ---------------- Cartões de resumo do dashboard ---------------- */
+/* Dashboard */
 
 #cartoes {
   display: flex;
@@ -293,7 +304,7 @@ main {
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
 }
 
-/* ---------------- Página de produtos ---------------- */
+/* Catálogo */
 
 .barra-filtros {
   display: flex;
@@ -332,7 +343,11 @@ main {
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+}
+
+.produto.esgotado {
+  opacity: 0.72;
 }
 
 .produto-categoria {
@@ -354,17 +369,28 @@ main {
   color: #15803d;
 }
 
+.produto-estoque {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.produto.esgotado .produto-estoque {
+  color: #b91c1c;
+}
+
 .btn-adicionar {
-  /* "auto" empurra o botão para o fim do cartão, deixando todos
-     os botões alinhados mesmo quando o nome do produto ocupa
-     duas linhas. */
+  /* Empurra o botão para o fim do cartão, para alinhar todos mesmo
+     quando o nome do produto ocupa duas linhas. */
   margin-top: auto;
   font-size: 16px;
   padding: 10px;
 }
 
+/* Carrinho */
+
 #carrinho {
-  flex: 0 0 290px;
+  flex: 0 0 320px;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 22px;
@@ -379,10 +405,41 @@ main {
 }
 
 .item-carrinho {
-  font-size: 15px;
-  padding: 8px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 10px;
+  padding: 10px 0;
   border-bottom: 1px solid #e5e7eb;
+  font-size: 15px;
   color: #374151;
+}
+
+.item-nome {
+  font-weight: 600;
+}
+
+.item-quantidade {
+  text-align: right;
+  color: #6b7280;
+}
+
+.item-subtotal {
+  color: #15803d;
+  font-weight: 700;
+}
+
+.btn-remover {
+  width: auto;
+  justify-self: end;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.btn-remover:hover {
+  background-color: #fecaca;
 }
 
 #carrinho-vazio {
@@ -391,14 +448,62 @@ main {
   margin: 12px 0;
 }
 
-.total {
-  font-size: 18px;
-  margin-top: 14px;
+.linha-cupom {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0 4px;
+}
+
+.linha-cupom #campo-cupom {
+  flex: 1;
+  font-size: 15px;
+  padding: 9px 12px;
+  margin-bottom: 0;
+}
+
+#mensagem-carrinho.aviso {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+#mensagem-carrinho.erro {
+  color: #b91c1c;
+  background-color: #fee2e2;
+}
+
+#mensagem-carrinho.sucesso {
+  color: #15803d;
+  background-color: #dcfce7;
+}
+
+#resumo-valores {
+  margin-top: 16px;
   padding-top: 14px;
   border-top: 2px solid #e5e7eb;
+}
+
+.linha-valor {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.linha-valor.total {
+  font-size: 19px;
+  color: #111827;
+  margin-top: 10px;
 }
 
 #total-carrinho {
   color: #15803d;
   font-size: 22px;
+}
+
+#btn-limpar-carrinho {
+  margin-top: 16px;
 }

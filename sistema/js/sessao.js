@@ -1,29 +1,18 @@
-/* ============================================================
-   Controle de SESSÃO — usado pelas páginas internas
-   (dashboard.html e produtos.html).
-
-   Faz duas coisas:
-     1. Se ninguém fez login, chuta o visitante de volta para o login.
-     2. Mostra o e-mail de quem entrou no cabeçalho.
-
-   É isso que permite testar: "área restrita não pode ser
-   acessada sem login".
-   ============================================================ */
+// Usado pelo dashboard e pela página de produtos.
 
 const usuarioLogado = sessionStorage.getItem("usuarioLogado");
 
-// 1. Porteiro: sem sessão, volta para a tela de login
+// Sem sessão, volta para o login. Usamos replace() e não href para a
+// página protegida não ficar no histórico do navegador.
 if (!usuarioLogado) {
-  window.location.href = "index.html";
+  window.location.replace("index.html");
 }
 
-// 2. Mostra o e-mail no cabeçalho
 const spanUsuario = document.getElementById("usuario-logado");
 if (spanUsuario && usuarioLogado) {
   spanUsuario.textContent = usuarioLogado;
 }
 
-// 3. Botão "Sair": apaga a sessão e volta para o login
 const botaoSair = document.getElementById("btn-sair");
 if (botaoSair) {
   botaoSair.addEventListener("click", function () {

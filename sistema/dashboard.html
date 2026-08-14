@@ -8,7 +8,6 @@
 </head>
 <body>
 
-  <!-- Barra do topo, repetida nas páginas internas -->
   <header id="cabecalho">
     <span class="marca">MiniLoja</span>
 
@@ -18,7 +17,7 @@
     </nav>
 
     <div class="area-usuario">
-      <!-- O e-mail de quem entrou aparece aqui (preenchido pelo JavaScript) -->
+      <!-- Preenchido por js/sessao.js com o e-mail de quem entrou -->
       <span id="usuario-logado"></span>
       <button id="btn-sair" class="secundario">Sair</button>
     </div>
@@ -28,7 +27,6 @@
     <h1 id="titulo-bemvindo">Bem-vindo ao Sistema!</h1>
     <p class="subtitulo">Resumo geral da loja.</p>
 
-    <!-- Três cartões: os testes conferem quantos são e o valor de cada um -->
     <section id="cartoes">
       <div class="card-resumo" data-card="Produtos">
         <span class="card-titulo">Produtos</span>
@@ -48,7 +46,6 @@
       <h2>Precisa de ajuda?</h2>
       <p>
         Consulte a
-        <!-- Link EXTERNO: os testes conferem só um PEDAÇO do endereço -->
         <a id="link-documentacao"
            href="https://docs.cypress.io/app/end-to-end-testing/writing-your-first-end-to-end-test"
            target="_blank"

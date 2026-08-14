@@ -1,18 +1,25 @@
 {
   "name": "testes-cicd",
-  "version": "2.0.0",
-  "description": "MiniLoja - demonstração de testes automatizados com Cucumber + Cypress + Jenkins (Engenharia de Software I)",
+  "version": "3.0.0",
+  "description": "MiniLoja - projeto de testes automatizados com Cucumber + Cypress + Jenkins (Engenharia de Software I)",
   "scripts": {
     "start": "http-server ./sistema -p 8080 -c-1",
-    "cypress:open": "cypress open",
+    "cypress:open": "cypress open --env pausa=400",
+    "cypress:open:rapido": "cypress open",
     "cypress:run": "cypress run",
+    "cypress:run:lento": "cypress run --env pausa=400",
     "cypress:login": "cypress run --env tags=@login",
+    "cypress:cadastro": "cypress run --env tags=@cadastro",
     "cypress:dashboard": "cypress run --env tags=@dashboard",
     "cypress:produtos": "cypress run --env tags=@produtos",
+    "cypress:carrinho": "cypress run --env tags=@carrinho",
     "test": "start-server-and-test start http://localhost:8080 cypress:run",
+    "test:lento": "start-server-and-test start http://localhost:8080 cypress:run:lento",
     "test:login": "start-server-and-test start http://localhost:8080 cypress:login",
+    "test:cadastro": "start-server-and-test start http://localhost:8080 cypress:cadastro",
     "test:dashboard": "start-server-and-test start http://localhost:8080 cypress:dashboard",
-    "test:produtos": "start-server-and-test start http://localhost:8080 cypress:produtos"
+    "test:produtos": "start-server-and-test start http://localhost:8080 cypress:produtos",
+    "test:carrinho": "start-server-and-test start http://localhost:8080 cypress:carrinho"
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": [
@@ -22,12 +29,13 @@
   "keywords": [
     "cypress",
     "cucumber",
-    "bdd",
     "gherkin",
+    "bdd",
     "jenkins",
-    "ci-cd"
+    "ci-cd",
+    "testes-automatizados"
   ],
-  "author": "Luiz",
+  "author": "Luiz José Mendonça Duarte",
   "license": "MIT",
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^26.0.0",

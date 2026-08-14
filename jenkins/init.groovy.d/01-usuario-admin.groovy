@@ -1,12 +1,8 @@
-/* ============================================================
-   Roda automaticamente na PRIMEIRA vez que o Jenkins sobe.
-
-   Cria o usuário:   admin
-   Com a senha:      admin
-
-   Isso evita ter que caçar a senha secreta no log do container
-   na frente da turma. (Em produção, nunca use admin/admin!)
-   ============================================================ */
+/*
+ * Roda na primeira vez que o Jenkins sobe e cria o usuário admin/admin,
+ * para não ter que procurar a senha secreta no log do container.
+ * Em produção, obviamente, não se faz isso.
+ */
 
 import jenkins.model.Jenkins
 import hudson.security.HudsonPrivateSecurityRealm
@@ -14,7 +10,6 @@ import hudson.security.FullControlOnceLoggedInAuthorizationStrategy
 
 def jenkins = Jenkins.get()
 
-// Só cria o usuário se ainda não existir nenhum
 if (!(jenkins.getSecurityRealm() instanceof HudsonPrivateSecurityRealm)) {
     println "--> Criando usuario admin/admin para a aula..."
 

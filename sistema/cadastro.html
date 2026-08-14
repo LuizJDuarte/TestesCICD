@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar conta - MiniLoja</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="tela-centralizada">
+
+  <div class="cartao">
+
+    <h1 id="titulo-cadastro">Criar conta</h1>
+    <p class="subtitulo">Preencha os dados para se cadastrar na MiniLoja.</p>
+
+    <!-- Cada campo tem seu próprio espaço de erro logo abaixo. Assim o
+         teste consegue verificar em qual campo o erro apareceu. -->
+    <label for="nome">Nome completo</label>
+    <input type="text" id="nome" placeholder="Maria Silva">
+    <span class="erro-campo" id="erro-nome"></span>
+
+    <label for="email-cadastro">E-mail</label>
+    <input type="email" id="email-cadastro" placeholder="maria@email.com">
+    <span class="erro-campo" id="erro-email"></span>
+
+    <label for="senha-cadastro">Senha</label>
+    <input type="password" id="senha-cadastro" placeholder="mínimo 6 caracteres">
+    <span class="erro-campo" id="erro-senha"></span>
+
+    <label for="confirmar-senha">Confirmar senha</label>
+    <input type="password" id="confirmar-senha" placeholder="repita a senha">
+    <span class="erro-campo" id="erro-confirmacao"></span>
+
+    <label class="label-inline" for="aceitar-termos">
+      <input type="checkbox" id="aceitar-termos">
+      Li e aceito os termos de uso
+    </label>
+    <span class="erro-campo" id="erro-termos"></span>
+
+    <button id="btn-cadastrar">Cadastrar</button>
+
+    <div id="mensagem-sucesso"></div>
+
+    <p class="dica">
+      <a id="link-ja-tenho-conta" href="index.html">Já tenho uma conta</a>
+    </p>
+
+  </div>
+
+  <script src="js/cadastro.js"></script>
+</body>
+</html>

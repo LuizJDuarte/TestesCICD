@@ -38,15 +38,30 @@
 
     <div class="colunas">
 
-      <!-- Os cartões de produto são criados pelo JavaScript (js/produtos.js) -->
+      <!-- Os cartões de produto são criados por js/produtos.js -->
       <section id="lista-produtos"></section>
 
-      <!-- Painel do carrinho -->
       <aside id="carrinho">
         <h2>Carrinho (<span id="contador-carrinho">0</span>)</h2>
+
         <ul id="itens-carrinho"></ul>
         <p id="carrinho-vazio">Seu carrinho está vazio.</p>
-        <p class="total">Total: <strong id="total-carrinho">R$ 0,00</strong></p>
+
+        <div class="linha-cupom">
+          <input type="text" id="campo-cupom" placeholder="Cupom">
+          <button id="btn-aplicar-cupom" class="secundario">Aplicar</button>
+        </div>
+
+        <!-- Avisos de estoque e de cupom -->
+        <div id="mensagem-carrinho"></div>
+
+        <div id="resumo-valores">
+          <p class="linha-valor">Subtotal <strong id="subtotal-carrinho">R$ 0,00</strong></p>
+          <p class="linha-valor">Desconto <strong id="desconto-carrinho">R$ 0,00</strong></p>
+          <p class="linha-valor total">Total <strong id="total-carrinho">R$ 0,00</strong></p>
+        </div>
+
+        <button id="btn-limpar-carrinho" class="secundario largo">Limpar carrinho</button>
       </aside>
 
     </div>
