@@ -13,6 +13,17 @@ caminho feliz, fluxos de erro, casos-limite e fluxos alternativos.
 > Você não precisa saber nada de teste automatizado para começar. Siga o tutorial na
 > ordem; cada parte só usa o que já foi explicado antes.
 
+**Já tem o Node.js e o Git instalados?** Quatro comandos e você vê os testes rodando:
+
+```bash
+git clone https://github.com/LuizJDuarte/TestesCICD.git
+cd TestesCICD
+npm install
+npm run aula
+```
+
+Se algum deles der erro, comece pela Parte 2.
+
 ---
 
 ## Índice
@@ -77,11 +88,17 @@ Serve para baixar o projeto e, mais para a frente, para alimentar o Jenkins.
 Qualquer editor serve, mas o VS Code tem uma extensão que ajuda muito.
 
 1. Baixe em <https://code.visualstudio.com>
-2. Depois de instalar, abra a aba de extensões (`Ctrl` + `Shift` + `X`)
-3. Procure e instale **Cucumber (Gherkin) Full Support**
+2. Abra a pasta do projeto no VS Code (*File › Open Folder*)
+3. Aceite a sugestão de instalar a extensão **Cucumber (Gherkin) Full Support**.
+   Se a sugestão não aparecer, procure a extensão pelo nome na aba de extensões
+   (`Ctrl` + `Shift` + `X`)
 
-Essa extensão colore os arquivos `.feature` e avisa quando uma frase do cenário não
-tem um passo correspondente no código.
+Essa extensão colore os arquivos `.feature`, sugere os passos enquanto você digita e
+avisa quando uma frase do cenário não tem um passo correspondente no código. Segure
+`Ctrl` e clique num passo do `.feature` para abrir o *step definition* dele.
+
+O projeto já vem configurado para ela na pasta `.vscode/`, que diz onde ficam os
+cenários e os passos.
 
 ### 2.4 Docker Desktop (só para a Parte 11)
 
@@ -110,7 +127,7 @@ terminal precisa ser fechado e aberto de novo.
 ### 3.1 Baixe o projeto
 
 ```bash
-git clone <URL-DO-REPOSITORIO>
+git clone https://github.com/LuizJDuarte/TestesCICD.git
 cd TestesCICD
 ```
 
@@ -238,12 +255,14 @@ TestesCICD/
 │           ├── cadastro_steps.js        passos da US-02
 │           ├── dashboard_steps.js       passos da US-03
 │           ├── produtos_steps.js        passos da US-04
-│           └── carrinho_steps.js        passos da US-05
+│           ├── carrinho_steps.js        passos da US-05
+│           └── apresentacao.js          modo apresentação (pausa entre os passos)
 │
 ├── jenkins/                    A ESTEIRA DE CI/CD
 │   ├── Dockerfile                 imagem do Jenkins com Node e Cypress
 │   └── init.groovy.d/             cria o usuário admin automaticamente
 │
+├── .vscode/                    configuração do VS Code (extensão do Cucumber)
 ├── cypress.config.js           configuração do Cypress
 ├── docker-compose.yml          sobe o Jenkins com um comando
 ├── Jenkinsfile                 a pipeline: 3 etapas
@@ -479,8 +498,18 @@ Praticamente todos os cenários deste projeto saíram dessas oito perguntas.
 
 ## 7. Rodando os testes
 
-Você precisa de **dois terminais abertos ao mesmo tempo**, os dois dentro da pasta do
-projeto.
+**Atalho para a aula:** um comando só liga o site e abre o Cypress direto na lista de
+testes, já em modo apresentação.
+
+```bash
+npm run aula
+```
+
+Clique num arquivo `.feature` e assista. Para encerrar, feche a janela do Cypress: o
+site desliga junto. Se você já tiver um `npm start` rodando, feche-o antes.
+
+Abaixo está o caminho completo, passo a passo. Ele usa **dois terminais abertos ao mesmo
+tempo**, os dois dentro da pasta do projeto.
 
 ### 7.1 Terminal 1 — o site
 
@@ -508,13 +537,13 @@ Cypress mostra como a tela estava exatamente naquele momento. É a ferramenta ma
 para entender por que um teste falhou.
 
 > **Velocidade.** Na velocidade normal o Cypress é rápido demais para acompanhar a olho
-> nu. Por isso o `npm run cypress:open` já vem em modo apresentação, com uma pausa de
-> 400 ms entre os comandos.
+> nu. Por isso o `npm run cypress:open` já vem em modo apresentação: o Cypress espera
+> 400 ms depois de cada passo do cenário e digita letra por letra.
 >
 > - mais devagar: `npx cypress open --env pausa=800`
 > - velocidade normal: `npm run cypress:open:rapido`
 >
-> Quem faz isso é o bloco no fim de `cypress/support/e2e.js`.
+> Quem faz isso é o arquivo `cypress/support/step_definitions/apresentacao.js`.
 
 ### 7.3 Terminal 2 — modo headless
 
@@ -529,6 +558,7 @@ npm run cypress:run
 
 | Comando | O que faz |
 |---|---|
+| `npm run aula` | liga o site e abre o Cypress na lista de testes, em modo apresentação |
 | `npm test` | liga o site, roda os 78 casos e desliga tudo (~1 min) |
 | `npm run test:lento` | o mesmo, mas devagar — bom para gravar um vídeo |
 | `npm run test:login` | só a US-01 |
@@ -538,7 +568,9 @@ npm run cypress:run
 | `npm run test:carrinho` | só a US-05 |
 
 Os atalhos por assunto funcionam graças às **etiquetas** (`@login`, `@cadastro`, ...)
-que aparecem na primeira linha de cada `.feature`.
+que aparecem na primeira linha de cada `.feature`. Com `filterSpecs` e `omitFiltered`
+ligados no `package.json`, o Cypress roda só o arquivo daquela etiqueta, sem listar os
+outros cenários como pulados.
 
 ### 7.5 O que o Cypress guarda depois de rodar
 
@@ -559,7 +591,7 @@ Essas duas pastas são geradas automaticamente e não vão para o Git.
 | ver o código que executa uma frase | `cypress/support/step_definitions/<assunto>_steps.js` |
 | ver um passo usado por várias telas | `cypress/support/step_definitions/comuns_steps.js` |
 | criar um comando reutilizável | `cypress/support/comandos.js` |
-| mudar a velocidade da apresentação | `cypress/support/e2e.js` |
+| mudar a velocidade da apresentação | `cypress/support/step_definitions/apresentacao.js` |
 | mudar o endereço do site nos testes | `cypress.config.js` (campo `baseUrl`) |
 | mudar as regras de validação do cadastro | `sistema/js/cadastro.js` (função `validar`) |
 | mudar produtos, preços ou estoque | `sistema/js/produtos.js` (lista `PRODUTOS`) |
@@ -838,10 +870,17 @@ consequência, não causa.
 O Node não foi instalado ou o terminal foi aberto antes da instalação. Feche o terminal,
 abra de novo e teste com `node --version`.
 
-**`Error: listen EADDRINUSE: address already in use :::8080`**
-Já existe alguma coisa usando a porta 8080 — provavelmente um `npm start` que ficou
-aberto em outro terminal. Feche-o, ou mude a porta no `package.json` (script `start`)
-**e** no `cypress.config.js` (`baseUrl`). As duas precisam ser iguais.
+**`Error: listen EADDRINUSE` ou `Error: listen EACCES` na porta 8080**
+Outro programa já está usando a porta 8080: um `npm start` que ficou aberto em outro
+terminal, um Jenkins instalado direto no computador ou o contêiner de outro projeto. No
+Windows, `netstat -ano | findstr :8080` mostra o número do processo (a última coluna) e
+`Get-Process -Id <número>` mostra o nome dele. Feche esse programa, ou troque a porta em
+todos os scripts do `package.json` que citam `8080` **e** no `cypress.config.js`
+(`baseUrl`). Todos precisam usar a mesma porta.
+
+**O terminal do VS Code mostra `Debugger attached.` a cada comando**
+É a depuração automática do VS Code, que está ligada. Não atrapalha os testes. Para
+desligar: `Ctrl` + `Shift` + `P` → **Debug: Toggle Auto Attach** → **Disabled**.
 
 **O Cypress abre mas mostra `No specs found`**
 Confira o campo `specPattern` no `cypress.config.js`. Ele deve estar
