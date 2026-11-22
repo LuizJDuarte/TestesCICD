@@ -1,0 +1,13 @@
+{
+  // Onde a extensão do Cucumber procura os passos e os cenários.
+  // Com isso, Ctrl + clique num passo do .feature abre o step definition.
+  "cucumberautocomplete.steps": ["cypress/support/step_definitions/*.js"],
+  "cucumberautocomplete.syncfeatures": "cypress/e2e/*.feature",
+
+  // Sem isso, as sugestões não aparecem dentro das frases do Gherkin.
+  "editor.quickSuggestions": {
+    "comments": false,
+    "strings": true,
+    "other": true
+  }
+}

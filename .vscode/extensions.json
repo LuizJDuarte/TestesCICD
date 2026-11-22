@@ -1,0 +1,4 @@
+{
+  // Ao abrir a pasta, o VS Code sugere instalar esta extensão.
+  "recommendations": ["alexkrechik.cucumberautocomplete"]
+}
