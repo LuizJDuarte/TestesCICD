@@ -13,3 +13,6 @@ jenkins_home/
 .DS_Store
 Thumbs.db
 *.log
+
+# Material do professor (roteiro, gabarito e slides de trabalho)
+aula-2/
