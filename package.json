@@ -4,8 +4,10 @@
   "description": "MiniLoja - projeto de testes automatizados com Cucumber + Cypress + Jenkins (Engenharia de Software I)",
   "scripts": {
     "start": "http-server ./sistema -p 8080 -c-1",
+    "aula": "start-server-and-test start http://localhost:8080 cypress:aula",
     "cypress:open": "cypress open --env pausa=400",
     "cypress:open:rapido": "cypress open",
+    "cypress:aula": "cypress open --e2e --browser electron --env pausa=400",
     "cypress:run": "cypress run",
     "cypress:run:lento": "cypress run --env pausa=400",
     "cypress:login": "cypress run --env tags=@login",
@@ -24,7 +26,9 @@
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": [
       "cypress/support/step_definitions/**/*.js"
-    ]
+    ],
+    "filterSpecs": true,
+    "omitFiltered": true
   },
   "keywords": [
     "cypress",
